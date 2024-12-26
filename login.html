@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - NGO/Organization</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <!-- Your existing navbar goes here -->
+    </header>
+
+    <main>
+        <div class="signup-container">
+            <h2>Sign Up - NGO/Organization</h2>
+            <form action="/submit_signup" method="post">
+                <div class="input-box">
+                    <input type="text" name="org_name" required="">
+                    <label>Organization Name</label>
+                </div>
+                <div class="input-box">
+                    <input type="email" name="email" required="">
+                    <label>Email</label>
+                </div>
+                <div class="input-box">
+                    <input type="password" name="password" required="">
+                    <label>Password</label>
+                </div>
+                <div class="input-box">
+                    <input type="password" name="confirm_password" required="">
+                    <label>Confirm Password</label>
+                </div>
+                <button type="submit" class="submit-btn">Sign Up</button>
+            </form>
+        </div>
+    </main>
+</body>
+</html>
