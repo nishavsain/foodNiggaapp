@@ -1,0 +1,77 @@
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+import csv
+import bcrypt
+import os
+from datetime import datetime
+
+app = Flask(__name__)
+CORS(app)
+
+USERS_CSV = 'users.csv'
+LOGIN_RECORDS_CSV = 'login_records.csv'
+
+@app.route('/signup', methods=['POST'])
+def signup():
+    data = request.json
+    full_name = data.get('full_name')
+    email = data.get('email')
+    phone = data.get('phone')
+    password = data.get('password')
+    organization_name = data.get('organization_name')
+    address = data.get('address')
+    user_role = data.get('user_role')
+
+    if not all([full_name, email, phone, password, organization_name, address, user_role]):
+        return jsonify({'error': 'All fields are required!'}), 400
+
+    hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+
+    with open(USERS_CSV, mode='a', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow([full_name, email, phone, hashed_password.decode('utf-8'), organization_name, address, user_role])
+
+    return jsonify({'message': 'User registered successfully!'}), 201
+
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.json
+    email = data.get('email')
+    password = data.get('password')
+
+    if not email or not password:
+        return jsonify({'error': 'Email and password are required!'}), 400
+
+    with open(USERS_CSV, mode='r') as file:
+        reader = csv.reader(file)
+        for row in reader:
+            if row[1] == email and bcrypt.checkpw(password.encode('utf-8'), row[3].encode('utf-8')):
+                latitude = data.get('latitude')
+                longitude = data.get('longitude')
+                timestamp = datetime.now().isoformat()
+
+                with open(LOGIN_RECORDS_CSV, mode='a', newline='') as log_file:
+                    log_writer = csv.writer(log_file)
+                    log_writer.writerow([email, latitude, longitude, timestamp])
+
+                return jsonify({'message': 'Login successful!'}), 200
+
+    return jsonify({'error': 'Invalid email or password!'}), 401
+
+@app.route('/auth/google', methods=['POST'])
+def google_auth():
+    # Placeholder for Google OAuth2 logic
+    return jsonify({'message': 'Google OAuth2 integration not implemented yet.'}), 501
+
+if __name__ == '__main__':
+    if not os.path.exists(USERS_CSV):
+        with open(USERS_CSV, mode='w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(['Full Name', 'Email', 'Phone', 'Password', 'Organization Name', 'Address', 'User Role'])
+
+    if not os.path.exists(LOGIN_RECORDS_CSV):
+        with open(LOGIN_RECORDS_CSV, mode='w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(['Email', 'Latitude', 'Longitude', 'Timestamp'])
+
+    app.run(debug=True)

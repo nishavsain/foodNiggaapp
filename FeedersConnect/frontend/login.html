@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FeedersConnect - Login</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f1e4;
+            color: #6c757d;
+            overflow: hidden;
+            position: relative;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Container Styling */
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1;
+            animation: slideIn 1s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #000000;
+            font-weight: 600;
+            margin-bottom: 30px;
+            transition: color 0.3s ease;
+        }
+
+        h1:hover {
+            color: #28a745;
+        }
+
+        /* Form Styling */
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        label {
+            font-size: 16px;
+            font-weight: 600;
+            color: #6c757d;
+            margin-bottom: 9px;
+            text-align: center;
+        }
+
+        input {
+            padding: 12px;
+            border: 1px solid #6c757d;
+            border-radius: 6px;
+            font-size: 14px;
+            background-color: #ffffff;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #28a745;
+            outline: none;
+            box-shadow: 0 0 8px rgba(40, 167, 69, 0.4);
+        }
+
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .signup-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* Checkbox Styling */
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: #6c757d;
+        }
+
+        .checkbox-group input {
+            margin-right: 10px;
+            width: 13px;
+            margin-bottom: 12px;
+        }
+
+        /* Button Styling */
+        button {
+            padding: 12px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        /* Google Login Button */
+        .google-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #5bc0de;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .google-btn img {
+            width: 18px;
+            height: 18px;
+            margin-right: 10px;
+        }
+
+        .google-btn:hover {
+            background-color: #31b0d5;
+            transform: translateY(-2px);
+        }
+
+        /* Forgot Password Link */
+        .forgot-password {
+            margin-top: 0px;
+            margin-bottom: 10px;
+            margin-left: 275px;
+            font-size: 14px;
+            color: #5bc0de;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            width: 150px;
+        }
+
+        .forgot-password:hover {
+            color: #31b0d5;
+        }
+
+        /* Signup Link */
+        .signup-link {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #6c757d;
+        }
+
+        .signup-link a {
+            color: #ff9800;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .signup-link a:hover {
+            color: #e68900;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 500px) {
+            .container {
+                padding: 20px;
+                width: 100%;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            button,
+            .google-btn {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Welcome to FeedersConnect</h1>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required>
+                <span class="error-message" id="emailError"></span>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+                <span class="error-message" id="passwordError"></span>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="rememberMe" name="rememberMe">
+                <label for="rememberMe">Remember Me</label>
+            </div>
+            <a href="#" class="forgot-password" id="forgotPassword">Forgot Password?</a>
+            <button type="submit">Login</button>
+            <div class="signup-message" id="signupMessage">User does not exist. Please <a href="signup.html">sign up</a> first.</div>
+            <div class="social-login">
+                <p>Or login with:</p>
+                <button type="button" class="google-btn">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" alt="Google logo">
+                    Google
+                </button>
+            </div>
+        </form>
+        <div class="signup-link">
+            <p>New to FeedersConnect? <a href="signup.html">Sign up</a></p>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        fetch('/path/to/users.csv')
+            .then(response => response.text())
+            .then(data => {
+                const users = data.split('\n').map(line => {
+                    const [userEmail, userPassword] = line.split(',');
+                    return { email: userEmail.trim(), password: userPassword.trim() };
+                });
+
+                const user = users.find(user => user.email === email && user.password === password);
+
+                if (user) {
+                    alert('Login successful!');
+                } else {
+                    document.getElementById('signupMessage').style.display = 'block';
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching users:', error);
+            });
+    });
+</script></script>

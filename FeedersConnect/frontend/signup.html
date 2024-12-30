@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FeedersConnect - Signup</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f1e4;
+            color: #6c757d;
+            overflow: hidden;
+            position: relative;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Container Styling */
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1;
+            animation: slideIn 1s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #000000;
+            font-weight: 600;
+            margin-bottom: 30px;
+            transition: color 0.3s ease;
+        }
+
+        h1:hover {
+            color: #28a745;
+        }
+
+        /* Form Styling */
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            width: 100%;
+            transition: all 0.5s ease;
+            overflow-y: auto;
+            max-height: 70vh;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            font-size: 18px;
+        }
+
+        label {
+            font-size: 16px;
+            font-weight: 600;
+            color: #6c757d;
+            margin-bottom: 9px;
+            text-align: left;
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+            transform: scale(1.5);
+        }
+
+        input,
+        textarea,
+        select {
+            padding: 12px;
+            border: 1px solid #6c757d;
+            border-radius: 6px;
+            font-size: 14px;
+            background-color: #ffffff;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #28a745;
+            outline: none;
+            box-shadow: 0 0 8px rgba(40, 167, 69, 0.4);
+        }
+
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        /* Button Styling */
+        button {
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        /* Back Arrow Styling */
+        .back-arrow {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #007bff;
+            transition: color 0.3s ease;
+        }
+
+        .back-arrow:hover {
+            color: #0056b3;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 500px) {
+            .container {
+                padding: 20px;
+                width: 100%;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            button {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Signup for FeedersConnect</h1>
+        <div class="form-group" id="initialForm">
+            <label>Are you signing up as an individual or an organization?</label>
+            <button type="button" onclick="toggleForm('individual')">Individual</button>
+            <button type="button" onclick="toggleForm('organization')">Organization</button>
+        </div>
+        <form id="signupForm" style="display: none;">
+            <!-- Back Arrow -->
+            <div class="back-arrow" onclick="goBack()">&#8592;</div>
+
+            <!-- Individual Form -->
+            <div id="individualForm" style="display: none;">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" name="fullName" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="text" id="phone" name="phone" required pattern="\d{10}">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <textarea id="address" name="address" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="userRole">User Role</label>
+                    <select id="userRole" name="userRole" required>
+                        <option value="" disabled selected>Select your role</option>
+                        <option value="Donor">Donor</option>
+                        <option value="Recipient">Recipient</option>
+                        <option value="Volunteer">Volunteer</option>
+                    </select>
+                </div>
+                <fieldset class="form-group">
+                    <label><input type="checkbox" name="communicationMode" value="Email"> Email</label>
+                    <label><input type="checkbox" name="communicationMode" value="Phone"> Phone</label>
+                    <label><input type="checkbox" name="communicationMode" value="Both"> Both</label>
+                </fieldset>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="terms" required> I agree to the Terms and Conditions
+                    </label>
+                </div>
+                <button type="submit">Signup</button>
+            </div>
+
+            <!-- Organization Form -->
+            <div id="organizationForm" style="display: none;">
+                <div class="form-group">
+                    <label for="organizationName">Organization Name</label>
+                    <input type="text" id="organizationName" name="organizationName" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="text" id="phone" name="phone" required pattern="\d{10}">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <textarea id="address" name="address" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="organizationType">Organization Type</label>
+                    <select id="organizationType" name="organizationType" required>
+                        <option value="" disabled selected>Select your organization type</option>
+                        <option value="Restaurant">Restaurant</option>
+                        <option value="Grocery Store">Grocery Store</option>
+                        <option value="NGO">NGO</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="registrationNumber">Registration Number (optional)</label>
+                    <input type="text" id="registrationNumber" name="registrationNumber">
+                </div>
+                <div class="form-group">
+                    <label for="website">Website or Social Media Link (optional)</label>
+                    <input type="url" id="website" name="website">
+                </div>
+                <fieldset class="form-group">
+                    <legend>Food Preferences</legend>
+                    <label><input type="checkbox" name="foodPreferences" value="Cooked Meals"> Cooked Meals</label>
+                    <label><input type="checkbox" name="foodPreferences" value="Fresh Produce"> Fresh Produce</label>
+                    <label><input type="checkbox" name="foodPreferences" value="Packaged Goods"> Packaged Goods</label>
+                </fieldset>
+                <fieldset class="form-group">
+                    <legend>Preferred Communication Mode</legend>
+                    <label><input type="checkbox" name="communicationMode" value="Email"> Email</label>
+                    <label><input type="checkbox" name="communicationMode" value="Phone"> Phone</label>
+                    <label><input type="checkbox" name="communicationMode" value="Both"> Both</label>
+                </fieldset>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="terms" required> I agree to the Terms and Conditions
+                    </label>
+                </div>
+                <button type="submit">Signup</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function toggleForm(userType) {
+            const initialForm = document.getElementById('initialForm');
+            const individualForm = document.getElementById('individualForm');
+            const organizationForm = document.getElementById('organizationForm');
+            const signupForm = document.getElementById('signupForm');
+
+            initialForm.style.opacity = '0';
+            setTimeout(() => {
+                initialForm.style.display = 'none';
+                signupForm.style.display = 'block';
+                signupForm.style.opacity = '1';
+
+                if (userType === 'individual') {
+                    individualForm.style.display = 'block';
+                    organizationForm.style.display = 'none';
+                } else {
+                    individualForm.style.display = 'none';
+                    organizationForm.style.display = 'block';
+                }
+            }, 500);
+        }
+
+        function goBack() {
+            const initialForm = document.getElementById('initialForm');
+            const individualForm = document.getElementById('individualForm');
+            const organizationForm = document.getElementById('organizationForm');
+            const signupForm = document.getElementById('signupForm');
+
+            signupForm.style.opacity = '0';
+            setTimeout(() => {
+                signupForm.style.display = 'none';
+                initialForm.style.display = 'block';
+                initialForm.style.opacity = '1';
+                individualForm.style.display = 'none';
+                organizationForm.style.display = 'none';
+            }, 500);
+        }
+
+        async function submitForm(event) {
+            event.preventDefault();
+            const formData = new FormData(document.getElementById('signupForm'));
+            const response = await fetch('/submit', {
+                method: 'POST',
+                body: formData
+            });
+            if (response.ok) {
+                alert('Signup successful!');
+            } else {
+                alert('Signup failed. Please try again.');
+            }
+        }
+    </script>
+</body>
+
+</html>
